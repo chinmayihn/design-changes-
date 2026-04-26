@@ -1,0 +1,264 @@
+/* ───────────────────────────────────────────────────────────
+   AMentor HUD — Optimized Star Chart
+   Theme: High-Fidelity Integrated HUD
+   ─────────────────────────────────────────────────────────── */
+
+.amentor-hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+/* ─── Layer 0: 3D Canvas ─── */
+.amentor-hud__canvas-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.amentor-hud__canvas-layer > div {
+  height: 100% !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* ─── Layer 1: HUD Overlay ─── */
+.amentor-hud__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.amentor-hud__overlay > * {
+  pointer-events: auto;
+}
+
+/* ─── HUD Header ─── */
+.amentor-hud__header {
+  padding: 30px 50px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+}
+
+.amentor-hud__header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.amentor-hud__status-tag {
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: 9px;
+  color: var(--accent-cyan, #15AABF);
+  letter-spacing: 2px;
+  padding: 2px 8px;
+  border: 1px solid rgba(21, 170, 191, 0.4);
+  background: rgba(21, 170, 191, 0.05);
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.amentor-hud__title {
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: 1.8rem;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 3px;
+  font-weight: 700;
+}
+
+.amentor-hud__directive {
+  margin: 10px 0 0 0;
+  font-size: 0.85rem;
+  color: #8B92A5;
+  max-width: 700px;
+  line-height: 1.5;
+}
+
+.amentor-hud__directive strong {
+  color: var(--accent-cyan, #15AABF);
+}
+
+.amentor-hud__header-line {
+  height: 1px;
+  margin-top: 20px;
+  background: linear-gradient(90deg, transparent, rgba(21, 170, 191, 0.3), transparent);
+}
+
+/* ─── Footer (hidden) ─── */
+.amentor-hud__footer {
+  display: none;
+}
+
+/* ─── Action Button ─── */
+.amentor-hud__action-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0px;
+  color: #ffffff;
+  padding: 13px 52px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  flex-shrink: 0;
+}
+
+.amentor-hud__action-btn::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid #15AABF;
+  border-left: 2px solid #15AABF;
+}
+
+.amentor-hud__action-btn::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid #15AABF;
+  border-right: 2px solid #15AABF;
+}
+
+.amentor-hud__action-btn:hover {
+  background: rgba(21, 170, 191, 0.10);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 40px rgba(21, 170, 191, 0.4), 0 0 80px rgba(21, 170, 191, 0.2), inset 0 0 40px rgba(21, 170, 191, 0.08);
+  transform: translateY(-2px);
+}
+
+.amentor-hud__btn-label {
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.amentor-hud__action-btn:hover .amentor-hud__btn-label {
+  color: #ffffff;
+}
+
+.amentor-hud__btn-sub {
+  font-size: 8px;
+  letter-spacing: 2px;
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  color: rgba(255, 255, 255, 0.45) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.amentor-hud__action-btn:hover .amentor-hud__btn-sub {
+  color: rgba(255, 255, 255, 0.45) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.amentor-hud__btn-hint {
+  font-size: 10px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+}
+
+/* ─── Corner Graphics ─── */
+.amentor-hud__corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(21, 170, 191, 0.2);
+  pointer-events: none;
+}
+
+.amentor-hud__corner--tl { top: 20px; left: 20px; border-right: 0; border-bottom: 0; }
+.amentor-hud__corner--tr { top: 20px; right: 20px; border-left: 0; border-bottom: 0; }
+.amentor-hud__corner--bl { bottom: 20px; left: 20px; border-right: 0; border-top: 0; }
+.amentor-hud__corner--br { bottom: 20px; right: 20px; border-left: 0; border-top: 0; }
+
+/* ─── Scanline Effect ─── */
+.amentor-hud__scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(21, 170, 191, 0.1);
+  animation: hud-scan 10s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes hud-scan {
+  from { top: 0; }
+  to { top: 100%; }
+}
+
+/* ─── Hoverable Layer ─── */
+.amentor-hud__layer--hoverable {
+  cursor: pointer;
+  border-radius: 0px;
+  padding: 6px 8px;
+  margin: -6px -8px;
+  transition: background 0.2s ease;
+}
+
+.amentor-hud__layer--active {
+  background: rgba(21, 170, 191, 0.08);
+  border-left: 2px solid rgba(21, 170, 191, 0.5);
+  padding-left: 10px;
+}
+
+.amentor-hud__legend-item {
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.amentor-hud__legend-item:hover {
+  opacity: 1;
+  color: #ffffff;
+}
+
+/* ─── Loading / No Data ─── */
+.amentor-hud__loading,
+.amentor-hud__no-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgba(21, 170, 191, 0.5);
+  font-family: var(--font-display, 'Orbitron', sans-serif);
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .amentor-hud__header {
+    padding: 20px 30px;
+  }
+}
